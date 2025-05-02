@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temp</title>
+    <meta name="google" content="notranslate" />
+    <link rel="shortcut icon" href="assets/favicon.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script id="template" type="text/x-handlebars-template">
+      <div class="container">
+        {{#each bases}}
+          <div class="base {{this.type}}">
+            {{#each this.sides}}
+              {{#if this.container}}
+                <div class="container-side">
+                  <div class="side {{this.class}}"></div>
+                </div>
+              {{else}}
+                <div class="side {{this.class}}"></div>
+              {{/if}}
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+    </script>
+
+    <script>
+      const source = document.getElementById("template").innerHTML;
+      const template = Handlebars.compile(source);
+
+      const context = {
+        bases: [
+          {
+            type: "base-bottom",
+            sides: [
+              { class: "side-1" },
+              { class: "side-2", container: true },
+              { class: "side-3", container: true },
+              { class: "side-4" },
+              { class: "side-5" }
+            ]
+          },
+          {
+            type: "center",
+            sides: [
+              { class: "side-1" },
+              { class: "side-2" },
+              { class: "side-3" },
+              { class: "side-4" },
+              { class: "side-5" }
+            ]
+          },
+          {
+            type: "base-top",
+            sides: [
+              { class: "side-1" },
+              { class: "side-2" },
+              { class: "side-3" },
+              { class: "side-4" },
+              { class: "side-5" }
+            ]
+          }
+        ]
+      };
+
+      const html = template(context);
+      document.body.innerHTML = html + '<script src="script.js"><\/script>';
+    </script>
+  </body>
+</html>
